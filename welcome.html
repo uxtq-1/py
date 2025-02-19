@@ -20,8 +20,15 @@
   <!-- Particles.js Container -->
   <div id="particles-js"></div>
 
-  <!-- Typewriter and Audio -->
+  <!-- Language Toggle Button (Only EN/ES) -->
+  <div style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+    <button id="language-toggle" style="background-color: #7e69ab; color: #fff; border: none; padding: 8px 15px; border-radius: 20px;">EN</button>
+  </div>
+
+  <!-- Typewriter Effect Container -->
   <div id="typewriter"></div>
+
+  <!-- Background Music -->
   <audio id="background-music" autoplay loop>
     <source src="https://www.myinstants.com/media/sounds/tada-fanfare-a.mp3" type="audio/mpeg" />
   </audio>
@@ -30,15 +37,7 @@
   <div style="position: absolute; top: 70%; left: 50%; transform: translateX(-50%); text-align: center; z-index: 10;">
     <button
       id="continue-btn"
-      style="
-        background-color: #9b87f5;
-        color: #fff;
-        border: none;
-        padding: 15px 25px;
-        cursor: pointer;
-        font-size: 1rem;
-        border-radius: 5px;
-      "
+      style="background-color: #9b87f5; color: #fff; border: none; padding: 15px 25px; cursor: pointer; font-size: 1rem; border-radius: 5px;"
     >
       Click to Continue
     </button>
@@ -46,10 +45,10 @@
 
   <!-- Particles.js Script -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <!-- Particles Config -->
+  <!-- Particles Configuration -->
   <script src="js/particles-config.js"></script>
 
-  <!-- Inline Typewriter Effect Script -->
+  <!-- Inline Scripts for Typewriter and Language Toggle -->
   <script>
     // Typewriter Effect
     const text = "Welcome to the Future!";
@@ -61,12 +60,10 @@
         typewriterElement.innerHTML += text.charAt(index);
         index++;
         setTimeout(typeEffect, 150);
-      } else {
-        // Blink cursor effect done via CSS below
       }
     }
 
-    // Style the typewriter
+    // Style the typewriter element
     typewriterElement.style.position = "absolute";
     typewriterElement.style.top = "50%";
     typewriterElement.style.left = "50%";
@@ -88,15 +85,27 @@
     `;
     document.head.appendChild(style);
 
-    // Start typewriter on load
+    // Start the typewriter effect on window load
     window.onload = () => {
       typeEffect();
     };
 
-    // Button to continue
+    // "Click to Continue" Button functionality
     const continueBtn = document.getElementById("continue-btn");
     continueBtn.addEventListener("click", () => {
       window.location.href = "index.html";
+    });
+
+    // Language Toggle Functionality (EN/ES only)
+    const languageToggleButton = document.getElementById('language-toggle');
+    let currentLanguage = localStorage.getItem('language') || 'en';
+    document.body.setAttribute('lang', currentLanguage);
+    languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
+    languageToggleButton.addEventListener('click', function() {
+      currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
+      languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
+      document.body.setAttribute('lang', currentLanguage);
+      localStorage.setItem('language', currentLanguage);
     });
   </script>
 </body>
