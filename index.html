@@ -1,15 +1,4 @@
-from flask import Flask, render_template
 
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-# Create the index.html file
 index_html = """<!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -95,6 +84,3 @@ index_html = """<!DOCTYPE html>
 </body>
 </html>"""
 
-# Save index.html file
-with open("templates/index.html", "w") as file:
-    file.write(index_html)
