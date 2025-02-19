@@ -1,100 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Particle Network</title>
-  <style>
-    /* Basic styles to remove margins and ensure the canvas fills the screen */
-    body, html {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background: #000;
-    }
-    canvas {
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Our canvas element for drawing particles -->
-  <canvas id="particleCanvas"></canvas>
-  <script>
-    // Setup the canvas and get its drawing context
-    const canvas = document.getElementById('particleCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    <div id="particles-js"></div>
+    <div class="content">
+        <h1 id="welcome-message">Welcome to your future growth with remote assistance</h1>
+        <div class="language-toggle">
+            <button onclick="changeLanguage('en')">EN</button>
+            <button onclick="changeLanguage('es')">ES</button>
+        </div>
+        <button class="button" onclick="window.location.href='/next-page'">Click to Continue</button>
+    </div>
 
-    // Create a Particle class to define each dot
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        // Random velocity in x and y directions
-        this.vx = (Math.random() - 0.5) * 2;
-        this.vy = (Math.random() - 0.5) * 2;
-        // Random radius between 1 and 4 for size variety
-        this.radius = Math.random() * 3 + 1;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        // Bounce off the edges of the canvas
-        if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
-        if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = '#fff';
-        ctx.fill();
-      }
-    }
-
-    // Create an array to store particles and populate it
-    const particles = [];
-    const particleCount = 100;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    // Function to draw lines between particles that are close together
-    function drawConnections() {
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 100) { // Only connect particles within 100px
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            // Adjust line opacity based on distance
-            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 100})`;
-            ctx.stroke();
-          }
+    <script>
+        // Function to change the language and store it in localStorage
+        function changeLanguage(lang) {
+            localStorage.setItem('language', lang);
+            updateLanguage();
         }
-      }
-    }
 
-    // Animation loop to continuously update and render particles and connections
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
-      drawConnections();
-      requestAnimationFrame(animate);
-    }
-    animate();
+        // Function to update the welcome message based on stored language
+        function updateLanguage() {
+            let language = localStorage.getItem('language') || 'en';
+            const message = document.getElementById('welcome-message');
 
-    // Adjust the canvas size if the window is resized
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  </script>
+            if (language === 'es') {
+                message.textContent = 'Bienvenido a tu crecimiento futuro con asistencia remota';
+            } else {
+                message.textContent = 'Welcome to your future growth with remote assistance';
+            }
+        }
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLanguage();
+        });
+
+        // Particles.js configuration
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 3,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
 </body>
 </html>
