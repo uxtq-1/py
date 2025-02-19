@@ -113,5 +113,5 @@ particlesJS("particles-js", {
     "retina_detect": true
 });
 
-// Start the typewriter effect
+// Start the typewriter effect on page load
 window.onload = typeWriter;
