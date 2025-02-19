@@ -15,6 +15,15 @@
     crossorigin="anonymous"
   />
   <link rel="icon" href="assets/favicon.ico" />
+  <!-- Inline CSS to Hide Mobile Navigation Elements -->
+  <style>
+    .mobile-nav,
+    .mobile-hamburger-menu,
+    .mobile-nav-panel,
+    .mobile-services-menu {
+      display: none !important;
+    }
+  </style>
 </head>
 <body>
   <!-- Particles.js Container -->
@@ -22,7 +31,12 @@
 
   <!-- Language Toggle Button (Only EN/ES) -->
   <div style="position: absolute; top: 10px; right: 10px; z-index: 10;">
-    <button id="language-toggle" style="background-color: #7e69ab; color: #fff; border: none; padding: 8px 15px; border-radius: 20px;">EN</button>
+    <button
+      id="language-toggle"
+      style="background-color: #7e69ab; color: #fff; border: none; padding: 8px 15px; border-radius: 20px;"
+    >
+      EN
+    </button>
   </div>
 
   <!-- Typewriter Effect Container -->
@@ -33,8 +47,8 @@
     <source src="https://www.myinstants.com/media/sounds/tada-fanfare-a.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- "Click to Continue" Button -->
-  <div style="position: absolute; top: 70%; left: 50%; transform: translateX(-50%); text-align: center; z-index: 10;">
+  <!-- "Click to Continue" Button (Centered) -->
+  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 10;">
     <button
       id="continue-btn"
       style="background-color: #9b87f5; color: #fff; border: none; padding: 15px 25px; cursor: pointer; font-size: 1rem; border-radius: 5px;"
@@ -43,12 +57,9 @@
     </button>
   </div>
 
-   <!-- Particles.js Script -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <!-- Particles Configuration -->
   <script src="js/particles-config.js"></script>
-
-  <!-- Inline Scripts for Typewriter and Language Toggle -->
   <script>
     // Typewriter Effect
     const text = "Welcome to the Future!";
@@ -65,7 +76,7 @@
 
     // Style the typewriter element
     typewriterElement.style.position = "absolute";
-    typewriterElement.style.top = "50%";
+    typewriterElement.style.top = "40%"; /* Adjust vertical position as needed */
     typewriterElement.style.left = "50%";
     typewriterElement.style.transform = "translate(-50%, -50%)";
     typewriterElement.style.fontSize = "2em";
