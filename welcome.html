@@ -3,121 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to OPS Online Support</title>
-  <!-- Global CSS (Desktop-First) -->
-  <link rel="stylesheet" href="css/global.css" />
-  <!-- Additional overrides for small screens -->
-  <link rel="stylesheet" media="(max-width: 768px)" href="css/small-screens.css" />
-  <!-- Font Awesome Stylesheet -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    crossorigin="anonymous"
-  />
-  <link rel="icon" href="assets/favicon.ico" />
-  <!-- Inline CSS to Hide Mobile Navigation Elements -->
+  <title>Welcome Page</title>
   <style>
-    .mobile-nav,
-    .mobile-hamburger-menu,
-    .mobile-nav-panel,
-    .mobile-services-menu {
-      display: none !important;
+    /* Basic Reset */
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000; /* Dark background for contrast */
+    }
+    /* Particles container covers the whole viewport */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    /* Language Toggle Button Style */
+    .language-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #7e69ab;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    /* Welcome Message Style */
+    .welcome-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 2em;
+      z-index: 10;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <!-- Particles.js Container -->
+  <!-- Particles Background Container -->
   <div id="particles-js"></div>
 
-  <!-- Language Toggle Button (Only EN/ES) -->
-  <div style="position: absolute; top: 10px; right: 10px; z-index: 10;">
-    <button
-      id="language-toggle"
-      style="background-color: #7e69ab; color: #fff; border: none; padding: 8px 15px; border-radius: 20px;"
-    >
-      EN
-    </button>
-  </div>
+  <!-- Language Toggle Button -->
+  <button class="language-toggle" id="langToggle">EN</button>
 
-  <!-- Typewriter Effect Container -->
-  <div id="typewriter"></div>
+  <!-- Welcome Message -->
+  <div class="welcome-text" id="welcomeText">Welcome to Our Site!</div>
 
-  <!-- Background Music -->
-  <audio id="background-music" autoplay loop>
-    <source src="https://www.myinstants.com/media/sounds/tada-fanfare-a.mp3" type="audio/mpeg" />
-  </audio>
-
-  <!-- "Click to Continue" Button (Centered) -->
-  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 10;">
-    <button
-      id="continue-btn"
-      style="background-color: #9b87f5; color: #fff; border: none; padding: 15px 25px; cursor: pointer; font-size: 1rem; border-radius: 5px;"
-    >
-      Click to Continue
-    </button>
-  </div>
-
-  <!-- Scripts -->
+  <!-- Include particles.js from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script src="js/particles-config.js"></script>
   <script>
-    // Typewriter Effect
-    const text = "Welcome to the Future!";
-    const typewriterElement = document.getElementById("typewriter");
-    let index = 0;
+    // Initialize particles.js with custom configuration
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle"
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 6,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 140,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "push": {
+            "particles_nb": 4
+          }
+        }
+      },
+      "retina_detect": true
+    });
 
-    function typeEffect() {
-      if (index < text.length) {
-        typewriterElement.innerHTML += text.charAt(index);
-        index++;
-        setTimeout(typeEffect, 150);
+    // Language Toggle Functionality
+    const langToggle = document.getElementById('langToggle');
+    const welcomeText = document.getElementById('welcomeText');
+
+    // Check for saved language in localStorage; default to English
+    let currentLang = localStorage.getItem('lang') || 'en';
+    updateLanguage(currentLang);
+
+    // Toggle language on button click
+    langToggle.addEventListener('click', () => {
+      currentLang = (currentLang === 'en') ? 'es' : 'en';
+      updateLanguage(currentLang);
+      localStorage.setItem('lang', currentLang);
+    });
+
+    // Update the interface text and button label based on selected language
+    function updateLanguage(lang) {
+      if (lang === 'en') {
+        langToggle.textContent = 'ES';
+        welcomeText.textContent = 'Welcome to Our Site!';
+        document.documentElement.lang = 'en';
+      } else {
+        langToggle.textContent = 'EN';
+        welcomeText.textContent = '¡Bienvenido a Nuestro Sitio!';
+        document.documentElement.lang = 'es';
       }
     }
-
-    // Style the typewriter element
-    typewriterElement.style.position = "absolute";
-    typewriterElement.style.top = "40%"; /* Adjust vertical position as needed */
-    typewriterElement.style.left = "50%";
-    typewriterElement.style.transform = "translate(-50%, -50%)";
-    typewriterElement.style.fontSize = "2em";
-    typewriterElement.style.whiteSpace = "nowrap";
-    typewriterElement.style.overflow = "hidden";
-    typewriterElement.style.borderRight = "4px solid white";
-    typewriterElement.style.animation = "blinkCursor 0.8s infinite";
-    typewriterElement.style.zIndex = "10";
-    typewriterElement.style.color = "white";
-
-    // Blink cursor animation
-    const style = document.createElement("style");
-    style.innerHTML = `
-      @keyframes blinkCursor {
-        50% { border-color: transparent; }
-      }
-    `;
-    document.head.appendChild(style);
-
-    // Start the typewriter effect on window load
-    window.onload = () => {
-      typeEffect();
-    };
-
-    // "Click to Continue" Button functionality
-    const continueBtn = document.getElementById("continue-btn");
-    continueBtn.addEventListener("click", () => {
-      window.location.href = "index.html";
-    });
-
-    // Language Toggle Functionality (EN/ES only)
-    const languageToggleButton = document.getElementById('language-toggle');
-    let currentLanguage = localStorage.getItem('language') || 'en';
-    document.body.setAttribute('lang', currentLanguage);
-    languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
-    languageToggleButton.addEventListener('click', function() {
-      currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
-      languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
-      document.body.setAttribute('lang', currentLanguage);
-      localStorage.setItem('language', currentLanguage);
-    });
   </script>
 </body>
 </html>
