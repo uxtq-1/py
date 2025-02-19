@@ -1,16 +1,14 @@
 /* =========================================================
-   All mobile overrides for screens ≤ 768px
+   Mobile Overrides for Screens ≤ 768px
    ========================================================= */
 @media screen and (max-width: 768px) {
-  /* Hide desktop nav + toggles on mobile */
-  header nav ul {
-    display: none;
-  }
+  /* Action: Hide desktop navigation elements */
+  header nav ul,
   .toggle-container {
     display: none;
   }
 
-  /* Show bottom mobile nav */
+  /* Action: Display bottom mobile navigation */
   .mobile-nav {
     display: flex;
     position: fixed;
@@ -24,6 +22,7 @@
     padding: 0.5rem 0;
     z-index: 3000; /* on top of floating icons */
   }
+  /* Action: Style mobile navigation items */
   .mobile-nav-item {
     display: flex;
     flex-direction: column;
@@ -36,7 +35,7 @@
     font-size: 1.5rem;
   }
 
-  /* Floating icons, placed lower in z-index */
+  /* Action: Adjust floating icons for mobile positioning */
   .floating-icons {
     position: fixed;
     bottom: 120px;
@@ -52,7 +51,7 @@
     font-size: 20px;
   }
 
-  /* Adjust hero text size on mobile */
+  /* Action: Adjust hero section text size on mobile */
   .hero h2 {
     font-size: 2rem;
   }
@@ -60,7 +59,7 @@
     font-size: 1.1rem;
   }
 
-  /* Stack services vertically */
+  /* Action: Stack service items vertically */
   .services {
     flex-direction: column;
     align-items: center;
@@ -70,7 +69,7 @@
     margin-bottom: 1rem;
   }
 
-  /* Modal size adjustments */
+  /* Action: Adjust modal size and layout for mobile */
   .modal-content {
     max-width: 95%;
     height: 85vh;
@@ -79,7 +78,9 @@
     grid-template-columns: 1fr;
   }
 
-  /* Mobile Services Menu */
+  /* =========================================================
+     Mobile Services Menu Styling
+     ========================================================= */
   .mobile-services-menu {
     position: fixed;
     bottom: 60px;
@@ -95,10 +96,12 @@
     transition: transform 0.3s ease;
     transform: translateY(100%);
   }
+  /* Event: Activate mobile services menu when .active is added */
   .mobile-services-menu.active {
     display: block;
     transform: translateY(0);
   }
+  /* Action: Style mobile services menu list */
   .mobile-services-menu ul {
     list-style: none;
     padding: 0;
@@ -119,14 +122,16 @@
 }
 
 /* =========================================================
-   For screens ≥ 769px, hide mobile nav (redundant but safe)
+   For Screens ≥ 769px: Hide Mobile Navigation Elements
    ========================================================= */
 @media screen and (min-width: 769px) {
+  /* Action: Ensure mobile navigation elements are hidden on larger screens */
   .mobile-nav,
   .mobile-services-menu {
     display: none;
   }
 }
+
 /* =========================================================
    Mobile Hamburger Menu
    ========================================================= */
@@ -160,9 +165,12 @@
   transform: translateX(-100%);
   padding: 20px;
 }
+/* Event: Slide-in panel when active */
 .mobile-nav-panel.active {
   transform: translateX(0);
 }
+
+/* Action: Style header within mobile navigation panel */
 .mobile-nav-panel-header {
   display: flex;
   justify-content: space-between;
@@ -179,6 +187,8 @@
   font-size: 1.5rem;
   cursor: pointer;
 }
+
+/* Action: Style mobile navigation panel list */
 .mobile-nav-panel ul {
   list-style: none;
   padding: 0;
@@ -191,6 +201,8 @@
   color: #333;
   font-size: 1.2rem;
 }
+
+/* Action: Style mobile navigation toggles */
 .mobile-nav-toggles {
   margin-top: 20px;
   display: flex;
@@ -206,11 +218,3 @@
   font-size: 1rem;
   cursor: pointer;
 }
-
-/* =========================================================
-   Hide Old Mobile Nav (if present)
-   ========================================================= */
-.mobile-nav, .mobile-services-menu {
-  display: none !important;
-}
-
