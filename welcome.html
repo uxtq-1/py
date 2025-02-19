@@ -1,14 +1,32 @@
-<!-- ============================================================
-       Document Metadata & External Resources
-       ============================================================ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome Page</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="assets/favicon.ico">
+  <!-- ============================================================
+         Document Metadata & External Resources
+         ============================================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Particles Background</title>
+  <style>
+    /* ============================================================
+       Basic Reset & Global Styles
+       ============================================================ */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000; /* Dark background for contrast */
+    }
+    /* ============================================================
+       Particles Background Container Styles
+       ============================================================ */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+  </style>
 </head>
 <body>
   <!-- ============================================================
@@ -17,39 +35,120 @@
   <div id="particles-js"></div>
 
   <!-- ============================================================
-       Desktop Language Toggle (Hidden on Small Screens)
-       ============================================================ -->
-  <button class="language-toggle" id="langToggle">EN</button>
-
-  <!-- ============================================================
-       Welcome Message
-       ============================================================ -->
-  <div class="welcome-text" id="welcomeText">Welcome to Our Site!</div>
-
-  <!-- ============================================================
-       Mobile Navigation Container (Small Screens Only)
-       ============================================================ -->
-  <div class="mobile-nav-container">
-    <!-- Hamburger Menu Button -->
-    <button id="mobile-menu-toggle" class="mobile-menu-toggle">menu</button>
-    <!-- Mobile Navigation Panel -->
-    <nav id="mobile-nav-panel" class="mobile-nav-panel">
-      <ul>
-        <li><a href="#" id="mobile-home">Home</a></li>
-        <li><a href="#" id="mobile-services">Services</a></li>
-        <li><button id="mobile-lang-toggle">EN</button></li>
-        <li><button id="dark-light-toggle">Lite</button></li>
-        <li><button id="chat-btn">Chat</button></li>
-      </ul>
-    </nav>
-  </div>
-
-  <!-- ============================================================
        External JavaScript Resources
        ============================================================ -->
-  <!-- Particles.js Library -->
+  <!-- Load particles.js library from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <!-- Custom JavaScript -->
-  <script src="scripts.js"></script>
+  
+  <!-- ============================================================
+       Particles.js Initialization Script
+       ============================================================ -->
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false,
+          "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 6,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 140,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
 </body>
 </html>
