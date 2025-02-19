@@ -56,50 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initial language update
   updateLanguage();
 
-  // --------------------------------------------------
-  // 3) Modal Functionality
-  // --------------------------------------------------
-  const modalOverlays = document.querySelectorAll('.modal-overlay');
-  const closeModalButtons = document.querySelectorAll('[data-close]');
-  const floatingIcons = document.querySelectorAll('.floating-icon');
-  
-  // Open modals when floating icons are clicked
-  floatingIcons.forEach(icon => {
-    icon.addEventListener('click', function() {
-      const modalId = icon.getAttribute('data-modal');
-      const modalElement = document.getElementById(modalId);
-      if (modalElement) {
-        modalElement.classList.add('active');
-        modalElement.focus();
-      }
-    });
-  });
-
-  // Close modals when close buttons are clicked
-  closeModalButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const parentOverlay = btn.closest('.modal-overlay');
-      if (parentOverlay) {
-        parentOverlay.classList.remove('active');
-      }
-    });
-  });
-
-  // Close modals when clicking outside the modal content or pressing ESC
-  modalOverlays.forEach(overlay => {
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) {
-        overlay.classList.remove('active');
-      }
-    });
-    overlay.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        overlay.classList.remove('active');
-      }
-    });
-  });
-
-  // --------------------------------------------------
+   // --------------------------------------------------
   // 4) Mobile Services Toggle
   // --------------------------------------------------
   const servicesToggle = document.getElementById('services-toggle');
