@@ -127,4 +127,90 @@
     display: none;
   }
 }
+/* =========================================================
+   Mobile Hamburger Menu
+   ========================================================= */
+.mobile-hamburger-menu {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 3001;
+}
+.mobile-hamburger-menu button {
+  background-color: #9b87f5;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+/* =========================================================
+   Mobile Navigation Panel (Hamburger Menu)
+   ========================================================= */
+.mobile-nav-panel {
+  position: fixed;
+  top: 0;
+  left: -80%; /* Hidden off-screen initially */
+  width: 80%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 3000;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+  padding: 20px;
+}
+.mobile-nav-panel.active {
+  transform: translateX(0);
+}
+.mobile-nav-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.mobile-nav-panel-header span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.mobile-nav-panel-header button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.mobile-nav-panel ul {
+  list-style: none;
+  padding: 0;
+}
+.mobile-nav-panel ul li {
+  margin: 15px 0;
+}
+.mobile-nav-panel ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+}
+.mobile-nav-toggles {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+.mobile-nav-toggles button {
+  flex: 1;
+  background-color: #7e69ab;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* =========================================================
+   Hide Old Mobile Nav (if present)
+   ========================================================= */
+.mobile-nav, .mobile-services-menu {
+  display: none !important;
+}
 
