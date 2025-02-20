@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Dots</title>
+  <title>Creative Interactive Dots</title>
   <style>
-    body { margin: 0; overflow: hidden; background: #000; }
+    body { margin: 0; overflow: hidden; background: linear-gradient(135deg, #0d0d0d, #1a1a1a); }
     canvas { display: block; }
   </style>
 </head>
@@ -18,48 +18,77 @@
     let height = canvas.height = window.innerHeight;
     let mouse = { x: null, y: null };
 
-    // Track mouse movement
     window.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
     });
 
-    // Dot class representing each particle
+    // Dot class representing each creative particle.
     class Dot {
       constructor(x, y, vx, vy) {
         this.x = x;
         this.y = y;
         this.vx = vx;
         this.vy = vy;
-        this.radius = 2;
+        this.radius = 3;
+        this.baseColor = { r: 255, g: 255, b: 255 };
       }
       update() {
+        // Calculate distance from mouse pointer.
+        if (mouse.x && mouse.y) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          // If close, accelerate and create a swirling effect.
+          if (dist < 150) {
+            // Angle for swirl motion.
+            const angle = Math.atan2(dy, dx);
+            // Modify velocity: attract, but also add perpendicular swirl.
+            this.vx += Math.cos(angle) * 0.02 + Math.cos(angle + Math.PI / 2) * 0.01;
+            this.vy += Math.sin(angle) * 0.02 + Math.sin(angle + Math.PI / 2) * 0.01;
+          }
+        }
         this.x += this.vx;
         this.y += this.vy;
-        // Bounce off the canvas edges
+        // Bounce off edges.
         if (this.x < 0 || this.x > width) this.vx = -this.vx;
         if (this.y < 0 || this.y > height) this.vy = -this.vy;
       }
       draw() {
+        // Determine color based on proximity to mouse.
+        let color = `rgb(${this.baseColor.r}, ${this.baseColor.g}, ${this.baseColor.b})`;
+        if (mouse.x && mouse.y) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            // Closer dots turn to a vibrant blue.
+            const factor = 1 - dist / 150;
+            const r = Math.floor(255 - factor * 255);
+            const g = Math.floor(255 - factor * 100);
+            const b = 255;
+            color = `rgb(${r}, ${g}, ${b})`;
+          }
+        }
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = color;
         ctx.fill();
       }
     }
 
-    // Create multiple dots with random positions and velocities
+    // Create a swarm of dots.
     const dots = [];
-    const numDots = 100;
+    const numDots = 150;
     for (let i = 0; i < numDots; i++) {
       let x = Math.random() * width;
       let y = Math.random() * height;
-      let vx = (Math.random() - 0.5) * 1;
-      let vy = (Math.random() - 0.5) * 1;
+      let vx = (Math.random() - 0.5) * 1.5;
+      let vy = (Math.random() - 0.5) * 1.5;
       dots.push(new Dot(x, y, vx, vy));
     }
 
-    // Connect dots with lines if they are within a threshold distance
+    // Draw lines connecting dots.
     function connectDots() {
       for (let i = 0; i < dots.length; i++) {
         for (let j = i + 1; j < dots.length; j++) {
@@ -68,7 +97,7 @@
           let distance = Math.sqrt(dx * dx + dy * dy);
           if (distance < 100) {
             let opacity = 1 - distance / 100;
-            ctx.strokeStyle = 'rgba(255, 255, 255,' + opacity + ')';
+            ctx.strokeStyle = `rgba(200,200,255,${opacity})`;
             ctx.beginPath();
             ctx.moveTo(dots[i].x, dots[i].y);
             ctx.lineTo(dots[j].x, dots[j].y);
@@ -78,37 +107,45 @@
       }
     }
 
-    // Highlight dots when the mouse is nearby
-    function drawMouseInteraction() {
+    // Draw and connect the mouse pointer with nearby dots.
+    function connectMouse() {
       if (mouse.x && mouse.y) {
-        for (let dot of dots) {
-          let dx = dot.x - mouse.x;
-          let dy = dot.y - mouse.y;
-          let distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 50) {
+        // Draw the mouse pointer as a radiant circle.
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = 'yellow';
+        ctx.fill();
+        // Connect to dots.
+        dots.forEach(dot => {
+          const dx = dot.x - mouse.x;
+          const dy = dot.y - mouse.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 150) {
+            const opacity = 1 - distance / 150;
+            ctx.strokeStyle = `rgba(255, 255, 100,${opacity})`;
             ctx.beginPath();
-            ctx.arc(dot.x, dot.y, dot.radius * 2, 0, Math.PI * 2);
-            ctx.fillStyle = 'red';
-            ctx.fill();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(dot.x, dot.y);
+            ctx.stroke();
           }
-        }
+        });
       }
     }
 
-    // Animation loop to update and render the scene
+    // Animation loop.
     function animate() {
       ctx.clearRect(0, 0, width, height);
-      for (let dot of dots) {
+      dots.forEach(dot => {
         dot.update();
         dot.draw();
-      }
+      });
       connectDots();
-      drawMouseInteraction();
+      connectMouse();
       requestAnimationFrame(animate);
     }
     animate();
 
-    // Adjust canvas size on window resize
+    // Resize handler.
     window.addEventListener('resize', () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
