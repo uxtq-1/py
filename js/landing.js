@@ -32,39 +32,62 @@ function typeWriter(language = 'en') {
     type(); // Start typing effect
 }
 
-// Particles.js Initialization with configuration
+// Initialize Particles.js with new configuration
 function initializeParticles() {
     particlesJS("particles-js", {
         particles: {
-            number: { value: 80, density: { enable: true, value_area: 800 } },
-            color: { value: "#ffffff" },
+            number: {
+                value: 100, // Increased for more particles
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+            color: {
+                value: "#ffffff" // White particles for visibility
+            },
             shape: {
-                type: "circle",
-                stroke: { width: 0, color: "#000000" },
-                polygon: { nb_sides: 5 }
+                type: "circle", // Particles will be circles (dots)
+                stroke: {
+                    width: 0,
+                    color: "#ffffff"
+                },
+                polygon: {
+                    nb_sides: 5
+                }
             },
             opacity: {
-                value: 0.5,
-                random: false,
-                anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                value: 0.7,
+                random: true,
+                anim: {
+                    enable: true,
+                    speed: 1,
+                    opacity_min: 0.1,
+                    sync: false
+                }
             },
             size: {
-                value: 3,
+                value: 5, // Size of the dots
                 random: true,
-                anim: { enable: true, speed: 40, size_min: 0.1, sync: false }
+                anim: {
+                    enable: true,
+                    speed: 4,
+                    size_min: 0.1,
+                    sync: false
+                }
             },
             line_linked: {
                 enable: true,
-                distance: 150,
-                color: "#ffffff",
-                opacity: 0.4,
+                distance: 150, // The distance at which lines are drawn
+                color: "#ffffff", // Line color
+                opacity: 0.5, // Line opacity
                 width: 1
             },
             move: {
                 enable: true,
-                speed: 6,
-                direction: "none",
-                random: false,
+                speed: 2,
+                direction: "none", // Particles should move in random directions
+                random: true,
                 straight: false,
                 out_mode: "out",
                 bounce: false
@@ -73,10 +96,29 @@ function initializeParticles() {
         interactivity: {
             detect_on: "window",
             events: {
-                onclick: { enable: true, mode: "push" },
-                onresize: { enable: true, density_auto: true, density_area: 800 }
+                onclick: {
+                    enable: true,
+                    mode: "push" // Add more particles on click
+                },
+                onhover: {
+                    enable: true,
+                    mode: "repulse" // Particles will move away from mouse
+                },
+                onresize: {
+                    enable: true,
+                    density_auto: true,
+                    density_area: 800
+                }
             },
-            modes: { push: { particles_nb: 4 } }
+            modes: {
+                push: {
+                    particles_nb: 4 // Number of particles to add when clicked
+                },
+                repulse: {
+                    distance: 100, // How far particles move away from mouse
+                    duration: 0.4
+                }
+            }
         },
         retina_detect: true
     });
