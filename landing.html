@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page with Typewriter</title>
+    <meta name="description" content="Landing page with interactive typewriter effect and particles background">
+    <title>Landing Page with Typewriter Effect</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Particles Background -->
     <div id="particles-js"></div>
-    <div class="language-toggle">
-        <button onclick="toggleLanguage('en')">EN</button>
-        <button onclick="toggleLanguage('es')">ES</button>
+
+    <!-- Language Toggle -->
+    <nav class="language-toggle" role="navigation">
+        <button onclick="toggleLanguage('en')" aria-label="Switch to English">EN</button>
+        <button onclick="toggleLanguage('es')" aria-label="Cambiar a Español">ES</button>
+    </nav>
+
+    <!-- Welcome Message -->
+    <div class="welcome-text" aria-live="polite">
+        <h1 id="welcomeMessage" class="typewriter"></h1>
     </div>
 
-    <div class="welcome-text">
-        <h1 id="welcomeMessage"></h1>
-    </div>
-
+    <!-- Continue Button -->
     <div class="button-container">
-        <button onclick="window.location.href='index.html'">Click to Continue</button>
+        <button onclick="window.location.href='index.html'" aria-label="Go to homepage">Click to Continue</button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="landing.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+    <script src="landing.js" defer></script>
 </body>
 </html>
